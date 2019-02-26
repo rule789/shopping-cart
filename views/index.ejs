@@ -1,0 +1,21 @@
+<% layout ('layout') %>
+<% stylesheet('/stylesheets/css/style.css')%>
+
+
+<div class="container  ">
+
+<% if (messages.success) { %>
+  <div class="alert alert-">
+    <%- messages.success %>
+  </div>
+<% } %>
+
+
+  <div>
+    <h1>Member Area</h1>
+    <p>Welcome to the members area</p>
+  </div>
+
+</div>
+
+<% script('') %>
