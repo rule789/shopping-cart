@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Welcome </title>
+  <link rel="stylesheet" href="/stylesheets/css/bootstrap.min.css">
+  <%- stylesheets %>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+  <!-- brand LOGO位置-->
+  <a class="navbar-brand" href="/">
+    <span class="h3">ShoppingMall</span>
+  </a>
+
+  <!-- hamburger -->
+  <!-- 漢堡式選單按鈕 -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- 漢堡式選單Icon -->
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+
+  <!-- 選單項目&漢堡式折疊選單 -->
+  <!-- .collapse.navbar-collapse 用於外層中斷點群組和隱藏導覽列內容 -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav">
+      <li class="nav-item
+      <% if(title == "Members"){ %>
+       active
+      <% } else {} %>">
+        <a href="/" id="opinion" class="nav-link nav_other link_button ">Members</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <div class="nav-item">
+        <a href="/users/register" id="register" class="nav-link
+        <% if(title == "Register"){ %>
+       active
+       <% } else {} %>
+       " >註冊</a>
+      </div>
+      <div class="nav-item
+      <% if(title == "Login"){ %>
+      active
+      <% } else {} %>">
+        <a href="/users/login" id="login" class="nav-link">登入</a>
+      </div>
+    </ul>
+  </div>
+</nav>
+
+
+<%- body %>
+
+<script src="../javascripts/lib/jquery-3.3.1.min.js"></script>
+<script src="../javascripts/lib/bootstrap.bundle.min.js"></script>
+<%- scripts %>
+</body>
+</html>

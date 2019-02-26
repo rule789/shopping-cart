@@ -1,0 +1,36 @@
+<% layout('layout') %>
+<% stylesheet('') %>
+
+
+<div class="container">
+
+  <h2 class="display-4 pb-2 mt-4 mb-2">Register</h2>
+  <p>Please finish the list below</p>
+
+  <div class="alert alert-danger" role="alert"></div>
+
+
+  <form action="/users/register" method="post">
+    <div class="form-group">
+      <label for="">Name</label>
+      <input type="text" class="form-control" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="">Email</label>
+      <input type="email" class="form-control" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="">Password</label>
+      <input type="password" class="form-control" name="password" id="password" required>
+    </div>
+    <div class="form-group">
+      <label for="">Confirm Password</label>
+      <input type="password" class="form-control" name="password_Check" id="password_Check" required>
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-dark" value="Register" id="sendBtn">
+    </div>
+  </form>
+</div>
+
+<% script('../javascripts/registerPage.js') %>
