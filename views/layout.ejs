@@ -6,11 +6,11 @@
   <link rel="stylesheet" href="/stylesheets/css/bootstrap.min.css">
   <%- stylesheets %>
 </head>
-<body>
+<body style="font-family: '微軟正黑體'">
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
   <!-- brand LOGO位置-->
-  <a class="navbar-brand" href="/">
+  <a class="navbar-brand" href="/?p=1">
     <span class="h3">ShoppingMall</span>
   </a>
 
@@ -28,13 +28,30 @@
 
     <ul class="navbar-nav">
       <li class="nav-item
+      <% if(title == "Shop"){ %>
+       active
+      <% } else {} %>">
+        <a href="/?p=1" id="opinion" class="nav-link nav_other link_button ">Products</a>
+      </li>
+      <%if (user) {%>
+      <li class="nav-item
       <% if(title == "Members"){ %>
        active
       <% } else {} %>">
-        <a href="/" id="opinion" class="nav-link nav_other link_button ">Members</a>
+        <a href="/users/profile" id="opinion" class="nav-link nav_other link_button ">Members</a>
       </li>
+      <% } %>
     </ul>
+
     <ul class="navbar-nav ml-auto">
+      <div class="nav-item">
+        <a href="/cart" id="cart" class="nav-link
+        <% if(title == "Cart"){ %>
+         active
+        <% } else {} %>">
+        購物車</a>
+      </div>
+      <%if (!user) {%>
       <div class="nav-item">
         <a href="/users/register" id="register" class="nav-link
         <% if(title == "Register"){ %>
@@ -48,6 +65,12 @@
       <% } else {} %>">
         <a href="/users/login" id="login" class="nav-link">登入</a>
       </div>
+      <% } %>
+      <%if (user) {%>
+      <div class="nav-item">
+        <a href="/users/logout" id="logout" class="nav-link">登出</a>
+      </div>
+      <% } %>
     </ul>
   </div>
 </nav>

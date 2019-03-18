@@ -1,0 +1,12 @@
+@charset "UTF-8";
+body {
+  font-family: '微軟正黑體'; }
+
+ul, li {
+  list-style: none; }
+
+.quantity {
+  width: 5vw; }
+
+.font-bigger {
+  font-size: 20px; }

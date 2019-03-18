@@ -1,0 +1,4 @@
+node_modules/
+config/config.json
+public/stylesheets/scss/
+package-lock.json

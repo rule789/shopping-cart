@@ -1,0 +1,17 @@
+@charset "UTF-8";
+body {
+  font-family: '微軟正黑體'; }
+
+ul, li {
+  list-style: none; }
+
+a {
+  color: black; }
+  a:hover {
+    text-decoration: none; }
+
+.item {
+  color: black; }
+  .item:hover {
+    box-shadow: 5px 5px 5px #DDD;
+    border: 1px solid #DDD; }

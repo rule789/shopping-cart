@@ -1,0 +1,91 @@
+<% layout('layout')%>
+<% stylesheet('/stylesheets/css/order.css') %>
+
+<div class="container">
+  <div class="row">
+    <h2 class="my-4">購物清單</h2>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>商品</th>
+          <th>單價</th>
+          <th>數量</th>
+          <th>小計</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (x in item) {%>
+        <tr data-id="<%= item[x].item._id%>">
+          <td><%= item[x].item.itemName%></td>
+          <td >
+            <span class="per-price"><%= item[x].item.price%></span> 元
+          </td>
+          <td class="quantity"><%= item[x].qun%></td>
+          <td class="item-price"> </td>
+        </tr>
+        <% } %>
+        <tr class="table-secondary">
+          <td colspan="2"></td>
+          <td>共</td>
+          <td>
+            <span class="total-cost"></span>元
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="row">
+    <h2 class="my-4">付款方式</h2>
+  </div>
+
+  <div class="row">
+    <br>
+    <div action="#" class="form pl-3">
+      <div class="form-check">
+        <input type="radio" class="form-check-input" name="paymentway" id="pay1" form="order-content" value="tran" required>
+        <label for="pay1" class="form-check-label" >轉帳</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" name="paymentway" id="pay2" form="order-content" value="deposit">
+        <label for="pay2" class="form-check-label">無摺存款</label>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <h2 class="my-4">運送資料</h2>
+  </div>
+  <div>
+    <form action="/order" method="post" class="form-horizontal" id="order-content" >
+      <div class="form-group row">
+        <label for="" class="col-form-label col-md-2 col-sm-12">地址</label>
+        <input type="text" name="address" class="form-control col-md-6 col-sm-12" required>
+      </div>
+      <div class="form-group row">
+        <label for="" class="col-form-label col-md-2 col-sm-12">收貨人</label>
+        <input type="text" name="person" class="form-control col-md-6 col-sm-12" required>
+      </div>
+      <div class="form-group row">
+        <label for="" class="col-form-label col-md-2 col-sm-12">連絡電話</label>
+        <input type="text" name="phone" class="form-control col-md-6 col-sm-12" required>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="row justify-content-center my-5">
+    <!-- <a href="/order/finish"> -->
+      <input type="submit" class="btn btn-danger px-5 py-2" value="送出訂單" form="order-content">
+    <!-- </a> -->
+  </div>
+
+</div>
+
+
+
+
+
+<% script('/javascripts/orderPage.js') %>
