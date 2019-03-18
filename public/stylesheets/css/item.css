@@ -1,0 +1,29 @@
+@charset "UTF-8";
+body {
+  font-family: '微軟正黑體'; }
+
+ul, li {
+  list-style: none; }
+
+.product-tabs a {
+  background: #DDD;
+  color: #444; }
+  .product-tabs a:hover {
+    color: black; }
+
+.seperate-border {
+  height: 50px;
+  width: 90vw;
+  margin: auto; }
+
+.item-price {
+  font-size: 35px; }
+
+.add-to-cart {
+  margin-top: 50px;
+  padding: 10px 25px;
+  font-size: 20px; }
+
+.product-tabs {
+  width: 85vw;
+  margin: auto; }

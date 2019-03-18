@@ -1,8 +1,11 @@
+require('./config/config.js');
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 
 // add new module
 var engine = require('ejs-locals');
@@ -11,6 +14,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var expressValidator = require('express-validator');
 var flash = require('express-flash');
+var sassMiddleware = require('node-sass-middleware');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -27,7 +32,18 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(sassMiddleware({
+  src: __dirname + '/public/stylesheets/scss', //where the sass files are
+  dest: __dirname + '/public/stylesheets/css',
+  // indentedSyntax : false,
+  prefix: '/stylesheets/css',
+  debug: true,
+  // outputStyle: 'compressed'
+}));
+
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(session({
   secret: 'secret',
   saveUninitialized: true,
@@ -38,34 +54,20 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// validator   formats the error objects
-// app.use(expressValidator({
-//   errorFormatter: function(param, msg, value) {
-//     console.log(param, msg, value);
-//       var namespace = param.split('.')
-//       , root    = namespace.shift()
-//       , formParam = root;
-
-//     while(namespace.length) {
-//       formParam += '[' + namespace.shift() + ']';
-//     }
-//     return {
-//       param : formParam,
-//       msg   : msg,
-//       value : value
-//     };
-//   }
-// }));
-
-// messages
 app.use(flash());
-// app.use(function (req, res, next) {
-//   res.locals.messages = require('express-messages')(req, res);
-//   next();
-// });
+
+
+//set global variable for login/logout status
+app.get('*', function(req, res, next) {
+  res.locals.user = req.user || null;
+  // console.log(req.user);
+  next();
+})
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+// app.use('/shop', shopRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

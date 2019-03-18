@@ -1,0 +1,91 @@
+<% layout ('layout') %>
+<% stylesheet('/stylesheets/css/style.css')%>
+
+
+<div class="container  ">
+
+<% if (messages.success) { %>
+  <div class="alert alert-success">
+    <%- messages.success %>
+  </div>
+<% } %>
+
+
+  <div>
+    <h1>訂單紀錄</h1>
+    <p>Welcome to the members area</p>
+  </div>
+
+  <div class="product-tabs mt-5">
+    <div class="row">
+      <!-- <div class="col-3"> -->
+        <!-- <div class="border p-2 "> -->
+          <!-- <ul class="nav flex-column nav-pills"> -->
+<!--             <li class="nav-item">
+              <a href="#" class="nav-link" id="userInfro">基本資料</a>
+            </li> -->
+<!--             <li class="nav-item">
+              <a href="#" class="nav-link" id="orderRecords">訂單紀錄</a>
+            </li>
+          </ul> -->
+        <!-- </div> -->
+
+      <!-- </div> -->
+      <div class="col-9">
+        <div id="userInfroArea">
+
+        </div>
+        <div id="orderRecordsArea">
+        <% if (orderIntegrate.length >0) {%>
+        <% for (x in orderIntegrate) {%>
+          <table class="table table-sm border">
+            <div class=" w-100 p-2 bg-dark text-white d-flex justify-content-between">
+              <span>
+                <span>訂單編號：<%= orderIntegrate[x].orderNumber %></span>
+                <span class="ml-5">成立時間：<%= orderIntegrate[x].time %></span>
+              </span>
+              <span class="mr-4">總金額：<%= orderIntegrate[x].total %> </span>
+            </div>
+
+            <thead class="thead-light">
+              <tr>
+                <th>品項名稱</th>
+                <th>單價</th>
+                <th>數量</th>
+                <th>總價</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (y in orderItemInfro) {%>
+              <% if (orderItemInfro[y].orderNumber == orderIntegrate[x].orderNumber) {%>
+              <tr>
+                <td><%= orderItemInfro[y].itemName %></td>
+                <td><%= orderItemInfro[y].price %></td>
+                <td><%= orderItemInfro[y].quantity %></td>
+                <td><%= orderItemInfro[y].price*orderItemInfro[y].quantity %></td>
+              </tr>
+              <% } %>
+              <% } %>
+            </tbody>
+          </table>
+<% } %>
+<% } else { %>
+          <div class="alert alert-secondary text-center">
+            無訂單紀錄
+          </div>
+<% } %>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+</div>
+
+<% script('') %>

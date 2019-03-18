@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/Shopping-cart', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 
 module.exports = {mongoose};
