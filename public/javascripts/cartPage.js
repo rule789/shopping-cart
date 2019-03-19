@@ -11,6 +11,10 @@ for(let i=0; i<onePrice.length; i++){
 }
 totalCostChange(itemPrice);
 
+
+
+
+
 // change quantity so change cost
 $('.cart-content').on('click', '.quantity', function(e){
   let whichItemArea = $(this).closest('tr');
@@ -39,6 +43,13 @@ $('.cart-content').on('click', '.quantity', function(e){
   });
 
 });
+
+
+// change quantity by keyboard
+$('.quantity').keyup(function(e){
+  $('.quantity').click();
+});
+
 
 
 // delete item
