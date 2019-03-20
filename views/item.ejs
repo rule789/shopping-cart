@@ -15,34 +15,28 @@
           <% for (let i=0; i<intro.length; i++){ %>
           <%= intro[i] %><br>
           <% } %>
-
-<!--           Ball 16oz 窄口馬克杯容量約 480 毫升<br>
-          最適合盛裝飲料、做為啤酒杯<br>
-          製作罐沙拉也很合適喔 -->
-
         </p>
         <br>
         <div>
           <span class="small text-muted mr-4 my-5">價格</span>
-          <span class="text-primary item-price"><%= item.price%></span>
+          <span class="text-primary itemPrice"><%= item.price%></span>
           <span class="small text-muted ml-1 my-5">元</span>
         </div>
 
-        <button class="btn btn-danger add-to-cart">加入購物車</button>
+        <button class="btn btn-danger addtoCartBtn">加入購物車</button>
       </div>
-
     </div>
   </div>
 </div>
 
-<div class="seperate-border"></div>
+<div class="seperateBorder"></div>
 
-  <div class="product-tabs">
+  <div class="productTabs">
     <ul class="nav nav-tabs">
-      <li class="nav-item" id="des-tab">
+      <li class="nav-item" id="desTab">
         <a class="nav-link active"  href="#">產品說明</a>
       </li>
-      <li class="nav-item" id="spec-tab">
+      <li class="nav-item" id="specTab">
         <a class="nav-link " href="#">規格</a>
       </li>
     </ul>
@@ -66,10 +60,7 @@
       <% } %>
     </p>
   </div>
-
 </div>
-
-
 
 
 <% script('/javascripts/itemPage.js') %>

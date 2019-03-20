@@ -19,10 +19,6 @@ const UserSchema = new mongoose.Schema({
 });
 
 
-// methods test
-// UserSchema.methods.speak = function(){
-//   console.log('My name is'+ this.name);
-// }
 
 
 UserSchema.methods.createUser = function() {
@@ -45,8 +41,6 @@ UserSchema.statics.getUserById = function(id, callback){
   let User = this;
   User.findById(id, callback);
 }
-
-
 
 UserSchema.pre('save', function(next){
   let user = this;

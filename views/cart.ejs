@@ -8,7 +8,7 @@
       <h4 class="w-100">購物車內沒有商品</h4>
     <% } else {%>
     <% cartItem[0] %>
-    <table class="table table-hover cart-content">
+    <table class="table table-hover cartContent">
       <thead class="thead-dark">
         <tr>
           <th>商品</th>
@@ -23,13 +23,13 @@
         <%  for( x in cartItem) {%>
         <tr data-id="<%= cartItem[x].item._id%>">
           <td ><%= cartItem[x].item.itemName %></td>
-          <td><span class="per-price"><%= cartItem[x].item.price %></span><span> 元</span></td>
+          <td><span class="perPrice"><%= cartItem[x].item.price %></span><span> 元</span></td>
           <td>
             <input type="number" min="1" value="<%= cartItem[x].quantity %>" class="quantity">
           </td>
-          <td><span class="item-price"></span><span> 元</span></td>
+          <td><span class="itemSum"></span><span> 元</span></td>
           <td>
-            <button class="btn btn-secondary btn-sm del">刪除</button>
+            <button class="btn btn-secondary btn-sm delBtn">刪除</button>
           </td>
         </tr>
         <% } %>
@@ -45,7 +45,7 @@
 
   <div class="row justify-content-end align-items-center my-5">
     <div class="mx-5">
-      <span class="font-bigger">共 </span><span class="font-bigger total-cost">  </span><span class="font-bigger">元</span>
+      <span class="fontBigger">共 </span><span class="fontBigger totalCost">  </span><span class="fontBigger">元</span>
     </div>
     <a href="/order/create" id="checkout">
       <input type="text" value="結帳" class="btn btn-danger p-2" >

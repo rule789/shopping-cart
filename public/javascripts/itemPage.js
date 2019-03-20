@@ -1,5 +1,5 @@
-let desTab = document.querySelector('#des-tab');
-let specTab = document.querySelector('#spec-tab');
+let desTab = document.querySelector('#desTab');
+let specTab = document.querySelector('#specTab');
 let des = document.querySelector('.descript');
 let spec = document.querySelector('.specification');
 
@@ -23,13 +23,10 @@ $(specTab).on('click', function(e){
 
 
 // 加入購物車
-$('.add-to-cart').on('click', function(){
+$('.addtoCartBtn').on('click', function(){
   let item = document.querySelector('#itemName');
-  // let itemName = $(item).text();
-  // let price = $('.item-price').text();
   let hasAdded = parseInt(item.dataset.hasadded);
   let itemId = item.dataset.id;
-  // console.log(itemId);
 
   if(hasAdded > -1){
     alert('購物車已有此商品');
@@ -41,7 +38,6 @@ $('.add-to-cart').on('click', function(){
         _itemId : itemId,
       },
       success: function(data){
-        // console.log(data);
         alert('已加入購物車');
         item.dataset.hasadded = '0';
       },

@@ -16,7 +16,6 @@ var ensureAuth = require('../config/isLogIn.js');
 
 // user profile page
 router.get('/profile', ensureAuth, function(req, res, next) {
-
   Order.find({_creator: req.user._id}).lean().then((orderRecords) => {
     let orderItemInfro = orderRecords.map((item) => {
       return Product.findById(item._itemId).then((product) => {
@@ -29,9 +28,7 @@ router.get('/profile', ensureAuth, function(req, res, next) {
 
   }).then((orderItemInfro) => {
     return orderIntegraInfro(orderItemInfro);
-
   }).then((orderTotalInfro) => {
-    console.log(orderTotalInfro);
     res.render('userProfile', {
       title: 'Members',
       orderIntegrate: orderTotalInfro.orderIntegrate,
@@ -42,9 +39,8 @@ router.get('/profile', ensureAuth, function(req, res, next) {
 
 
 
-// 只有訂單、時間、總金額的array
+// 只有每筆訂單、時間、總金額的資訊
 function orderIntegraInfro(orderItemInfro){
-  // console.log(orderItemInfro);
   let orderIntegrate = [];
   orderItemInfro.forEach((eachItem) => {
     let time = moment(eachItem.time).format('YYYY-MM-DD');
@@ -80,11 +76,9 @@ router.post('/register', function(req, res, next){
     password: req.body.password,
   });
 
-  // console.log(newUser.name);
-  // newUser.speak();
   newUser.createUser()
     .then((user) => {
-      req.flash('success', 'register success');
+      req.flash('success', '登入成功');
       res.redirect('/');
     })
     .catch((e) => {
@@ -92,17 +86,12 @@ router.post('/register', function(req, res, next){
         req.flash('error', '此Email已註冊');
         res.redirect('/users/register');
       }
-
     });
 });
 
 
-
-
 // login page
 router.get('/login', function(req, res, next){
-  // console.log(req.session);
-  // console.log(req.user);
   res.render('login', {
     title: 'Login',
     url: req.url,
@@ -112,7 +101,7 @@ router.get('/login', function(req, res, next){
 
 // login
 router.post('/login',
-  // 身分認證middleware
+  // middleware 身分認證
   passport.authenticate('local', {
     failureRedirect: '/users/login',
     failureFlash: true}),
@@ -145,7 +134,7 @@ router.post('/login',
   });
 
 
-// 用session更新Cart
+// session內的存入Cart
 function mergeSessionCart(user, session, item){
   session.forEach((sessionItem) => {
   // 判斷是否為new item
@@ -176,7 +165,7 @@ function mergeSessionCart(user, session, item){
   });
 }
 
-// session 更新
+// Cart裡的 放入 session.cart
 function sessionUpdate(session, item){
   // Cart有 session沒有 的item抓出來
   cartOnly = item.filter(function(each){
@@ -185,7 +174,7 @@ function sessionUpdate(session, item){
     }) == -1;
   });
   session = session.concat(cartOnly).map((item) => {
-    return {_itemId: item._itemId, quantity: item.quantity}
+    return {_itemId: item._itemId, quantity: item.quantity};
   });
   return Promise.resolve(session);
 }
@@ -198,16 +187,13 @@ passport.use(new LocalStrategy({
   function(username, password, done) {
     User.getUserByEmail(username)
       .then((user, err) => {
-        // console.log('err'+err, 'user'+user);
         if (err) { return done(err); }
         if (!user) {
           return done(null, false, { message: '帳號有誤' });
         }
         user.comparePassword(password, user.password, function(err, isMatch){
-            // console.log(err, isMatch);  // null true
             if(err) {return done(err); }
             if(isMatch){
-              // console.log(user);
               return done(null, user);
             } else {
               return done(null, false, {message: '密碼有誤'});
@@ -224,12 +210,10 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  // console.log(id);
   User.getUserById(id, function(err, user) {
     done(err, user);
   });
 });
-
 
 
 // logout
@@ -238,7 +222,6 @@ router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/users/login');
 });
-
 
 
 module.exports = router;

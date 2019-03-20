@@ -1,5 +1,5 @@
 let pwd = document.querySelector('#password');
-let pwdCheck = document.querySelector('#password_Check');
+let pwdCheck = document.querySelector('#passwordCheck');
 let alert = document.querySelector('.alert');
 let sendBtn = document.querySelector('#sendBtn');
 

@@ -1,8 +1,8 @@
 <% layout ('layout') %>
-<% stylesheet('/stylesheets/css/style.css')%>
+<% stylesheet('')%>
 
 
-<div class="container  ">
+<div class="container">
 
 <% if (messages.success) { %>
   <div class="alert alert-success">
@@ -32,12 +32,11 @@
 
       <!-- </div> -->
       <div class="col-9">
-        <div id="userInfroArea">
-
-        </div>
+<!--         <div id="userInfroArea">
+        </div> -->
         <div id="orderRecordsArea">
         <% if (orderIntegrate.length >0) {%>
-        <% for (x in orderIntegrate) {%>
+          <% for (x in orderIntegrate) {%>
           <table class="table table-sm border">
             <div class=" w-100 p-2 bg-dark text-white d-flex justify-content-between">
               <span>
@@ -65,7 +64,7 @@
                 <td><%= orderItemInfro[y].price*orderItemInfro[y].quantity %></td>
               </tr>
               <% } %>
-              <% } %>
+            <% } %>
             </tbody>
           </table>
 <% } %>
@@ -75,17 +74,10 @@
           </div>
 <% } %>
         </div>
-
       </div>
     </div>
-
   </div>
-
-
-
-
-
-
 </div>
+
 
 <% script('') %>

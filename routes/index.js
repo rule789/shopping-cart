@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-
 var {mongoose} = require('../model/connect.js');
 var {Cart} = require('../model/cartModel.js');
 var {Order} = require('../model/orderModel.js')
@@ -10,9 +9,7 @@ var ensureAuth = require('../config/isLogIn.js');
 
 // All product page
 router.get('/', function(req, res, next) {
-  // console.log(req.session);
   Product.find().then((items) => {
-    // console.log(items);
     res.render('index', {
       title: 'Shop',
       products: items,
@@ -23,7 +20,6 @@ router.get('/', function(req, res, next) {
 
 // item page
 router.get('/product/:item', (req, res, next) => {
-  // console.log(req.session);
   Product.findById(req.params.item).then((product) => {
     // cart是否有相同商品
     let cart = req.session.cart || [];
@@ -34,7 +30,6 @@ router.get('/product/:item', (req, res, next) => {
     let intro = product.introduction;
     let des = product.description;
     let spe = product.specification;
-    // console.log(des, spe);
 
     res.render('item', {
       title: 'Shop',
@@ -52,9 +47,6 @@ router.get('/product/:item', (req, res, next) => {
 
 // 加入購物車
 router.post('/cart/add', (req, res, next) => {
-  console.log(req.body);
-  // console.log(req.session.cart);
-
   // 購物車沒有商品
   if(!req.session.cart){
     req.session.cart = [{
@@ -66,14 +58,12 @@ router.post('/cart/add', (req, res, next) => {
     let cart = req.session.cart;
     let newItem = req.body;
     newItem.quantity = 1;
-    // console.log(newItem);
     cart.push(newItem);
     req.session.cart = cart;
   }
 
   // 有登入加進cart
   if(req.user){
-    // console.log(req.user);
     let item = new Cart({
       _creator: req.user._id,
       _itemId: req.body._itemId,
@@ -89,10 +79,8 @@ router.post('/cart/add', (req, res, next) => {
 
 
 
-
 // cart page
 router.get('/cart', (req, res, next) => {
-  // console.log(req.session);
   let sessionItem = req.session.cart || [];
 
   let render = sessionItem.map((session) => {
@@ -102,15 +90,13 @@ router.get('/cart', (req, res, next) => {
         quantity: session.quantity,
       };
       return itemArray;
-
     });
   });
 
-  Promise.all(render).then((item) => {
-    // console.log(item);
+  Promise.all(render).then((itemArray) => {
     res.render('cart', {
       title: 'Cart',
-      cartItem: item,
+      cartItem: itemArray,
     });
   });
 });
@@ -134,7 +120,6 @@ router.patch('/cart/quantity', (req, res, next) => {
       quantity: req.body.quantity
     }},
     {new: true}).then((item) => {
-      // console.log(item);
     })
   }
 
@@ -144,7 +129,7 @@ router.patch('/cart/quantity', (req, res, next) => {
 
 // 刪除購物車商品
 router.delete('/cart/remove', (req, res, next) => {
-  // 刪除session中物品
+  // 刪除session中商品
   let index = req.session.cart.findIndex((item) => {
     return item._itemId == req.body._itemId;
   });
@@ -152,18 +137,18 @@ router.delete('/cart/remove', (req, res, next) => {
 
   // 若有登入
   if(req.user){
-    Cart.findOneAndRemove({_creator: req.user._id, _itemId: req.body._itemId}).then((item) => {
-      // console.log(item);
-    })
+    Cart.findOneAndRemove({
+      _creator: req.user._id,
+      _itemId: req.body._itemId
+    }).then((item) => {
+    });
   }
-
   res.send();
 });
 
 
 // 結帳
 router.get('/order/create', (req, res, next) => {
-  // console.log(req.body);
   if(req.user){
     res.redirect('/order');
   } else {
@@ -174,17 +159,17 @@ router.get('/order/create', (req, res, next) => {
 
 // 訂單頁面
 router.get('/order', ensureAuth, (req, res, next) => {
-  // console.log(req.session.cart);
   let session = req.session.cart;
   let render = session.map((eachSession) => {
     return Product.findById(eachSession._itemId).then((eachProduct) => {
-      // console.log(eachSession);
-      return {item: eachProduct, qun: eachSession.quantity};
+      return {
+        item: eachProduct,
+        qun: eachSession.quantity
+      };
     });
   });
 
   Promise.all(render).then((render) => {
-    // console.log(render);
     res.render('order', {
       title: 'Cart',
       item: render,
@@ -199,13 +184,12 @@ router.get('/order', ensureAuth, (req, res, next) => {
 // 送出訂單
 router.post('/order', ensureAuth, (req, res, next) => {
   let time = new Date().getTime();
-
-  Order.find().sort("-orderNumber").limit(1).then((lastItem) => {
+  Order.find().sort("-orderNumber").limit(1).then((lastOrder) => {
     let orderNumber;
-    if( lastItem.length == 0){
+    if( lastOrder.length == 0){
       orderNumber = 1;
     } else {
-      orderNumber = lastItem[0].orderNumber + 1;
+      orderNumber = lastOrder[0].orderNumber + 1;
     }
     return orderNumber;
 
@@ -225,13 +209,13 @@ router.post('/order', ensureAuth, (req, res, next) => {
         });
 
         orderItem.save();
-      })
-    })
+      });
+    });
   }).then(() => {
     return Cart.deleteMany({_creator: req.user._id});
   }).then(() => {
       res.redirect('/order/finish');
-  })
+  });
 });
 
 
@@ -240,7 +224,7 @@ router.post('/order', ensureAuth, (req, res, next) => {
 router.get('/order/finish',ensureAuth, (req, res, next) => {
   res.render('orderFinish', {
     title: 'Cart',
-  })
+  });
 });
 
 module.exports = router;
