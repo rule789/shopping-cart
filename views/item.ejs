@@ -3,27 +3,29 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-6 border">
-      <img src="<%= item.img %>" alt="" class="w-100">
+    <div class="col-md-5 col-12 ">
+      <img src="<%= item.img %>" alt="" class="w-100 border">
     </div>
 
-    <div class="col-6">
+    <div class="col-md-7 col-12">
       <div class="ml-3">
-        <h2 class="pt-4" id="itemName" data-hasadded= <%= sameItemIndex %>
+        <h2 class="" id="itemName" data-hasadded= <%= sameItemIndex %>
            data-id= <%= item._id %> > <%= item.itemName %> </h2>
-        <p class="my-5">
+        <p class="productIntro">
           <% for (let i=0; i<intro.length; i++){ %>
           <%= intro[i] %><br>
           <% } %>
         </p>
-        <br>
-        <div>
-          <span class="small text-muted mr-4 my-5">價格</span>
-          <span class="text-primary itemPrice"><%= item.price%></span>
-          <span class="small text-muted ml-1 my-5">元</span>
+        <!-- <br> -->
+        <div class="toFlex">
+          <div>
+            <span class="small text-muted mr-4 my-5">價格</span>
+            <span class="text-primary itemPrice"><%= item.price%></span>
+            <span class="small text-muted ml-1 my-5">元</span>
+          </div>
+          <button class="btn btn-danger addtoCartBtn">加入購物車</button>
         </div>
 
-        <button class="btn btn-danger addtoCartBtn">加入購物車</button>
       </div>
     </div>
   </div>

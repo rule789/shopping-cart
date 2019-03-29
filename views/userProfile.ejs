@@ -1,5 +1,5 @@
 <% layout ('layout') %>
-<% stylesheet('')%>
+<% stylesheet('/stylesheets/css/userProfile.css')%>
 
 
 <div class="container">
@@ -13,7 +13,7 @@
 
   <div>
     <h1>訂單紀錄</h1>
-    <p>Welcome to the members area</p>
+    <!-- <p>Welcome to the members area</p> -->
   </div>
 
   <div class="product-tabs mt-5">
@@ -31,48 +31,70 @@
         <!-- </div> -->
 
       <!-- </div> -->
-      <div class="col-9">
+      <div class="col-lg-9 col-md-12">
 <!--         <div id="userInfroArea">
         </div> -->
-        <div id="orderRecordsArea">
-        <% if (orderIntegrate.length >0) {%>
-          <% for (x in orderIntegrate) {%>
-          <table class="table table-sm border">
-            <div class=" w-100 p-2 bg-dark text-white d-flex justify-content-between">
-              <span>
-                <span>訂單編號：<%= orderIntegrate[x].orderNumber %></span>
-                <span class="ml-5">成立時間：<%= orderIntegrate[x].time %></span>
-              </span>
-              <span class="mr-4">總金額：<%= orderIntegrate[x].total %> </span>
-            </div>
+        <div id="orderRecordsArea ">
+          <% if (orderIntegrate.length >0) {%>
+            <% for (x in orderIntegrate) {%>
+            <div class="table-responsive-sm">
 
-            <thead class="thead-light">
-              <tr>
-                <th>品項名稱</th>
-                <th>單價</th>
-                <th>數量</th>
-                <th>總價</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% for (y in orderItemInfro) {%>
-              <% if (orderItemInfro[y].orderNumber == orderIntegrate[x].orderNumber) {%>
-              <tr>
-                <td><%= orderItemInfro[y].itemName %></td>
-                <td><%= orderItemInfro[y].price %></td>
-                <td><%= orderItemInfro[y].quantity %></td>
-                <td><%= orderItemInfro[y].price*orderItemInfro[y].quantity %></td>
-              </tr>
-              <% } %>
-            <% } %>
-            </tbody>
-          </table>
-<% } %>
-<% } else { %>
-          <div class="alert alert-secondary text-center">
-            無訂單紀錄
-          </div>
-<% } %>
+              <table class="table table-sm border">
+                <div class=" w-100 p-2 bg-dark text-white d-flex justify-content-between">
+                  <span>
+                    <span>訂單編號：<%= orderIntegrate[x].orderNumber %></span>
+                    <span class="ml-5 orderTime">成立時間：<%= orderIntegrate[x].time %></span>
+                  </span>
+                  <span class="mr-4">總金額：<%= orderIntegrate[x].total %> </span>
+                </div>
+
+                <thead class="thead-light">
+                  <tr>
+                    <th class="nameWidth">品項名稱</th>
+                    <th>單價</th>
+                    <th>數量</th>
+                    <th>總價</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- 每一個商品內容 -->
+                  <% for (y in orderItemInfro) {%>
+                    <% if (orderItemInfro[y].orderNumber == orderIntegrate[x].orderNumber) {%>
+                    <tr>
+                      <td><%= orderItemInfro[y].itemName %></td>
+                      <td><%= orderItemInfro[y].price %></td>
+                      <td><%= orderItemInfro[y].quantity %></td>
+                      <td><%= orderItemInfro[y].price*orderItemInfro[y].quantity %></td>
+                    </tr>
+                    <% } %>
+                  <% } %>
+                <tr>
+                  <!-- 其他訂單資訊 -->
+                  <td colspan="4">
+                    <div class="otherInfor">
+                      <div>收貨人：<%= orderIntegrate[x].person%></div>
+                      <div>地址：<%= orderIntegrate[x].address%></div>
+                      <div>連絡電話：<%= orderIntegrate[x].phone%></div>
+                      <div>付款方式：
+                        <% if (orderIntegrate[x].paymentway = 'tran'){%>
+                          轉帳
+                        <% } else {%>
+                          無摺存款
+                        <% } %>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+
+              </table>
+            </div>
+          <% } %>
+          <% } else { %>
+            <div class="alert alert-secondary text-center">
+              無訂單紀錄
+            </div>
+          <% } %>
         </div>
       </div>
     </div>

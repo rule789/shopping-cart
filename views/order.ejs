@@ -2,8 +2,8 @@
 <% stylesheet('/stylesheets/css/order.css') %>
 
 <div class="container">
-  <div class="row">
-    <h2 class="my-4">購物清單</h2>
+  <h2 class="my-4 pt-3">購物清單</h2>
+  <div class="table-responsive-sm">
     <table class="table">
       <thead class="thead-dark">
         <tr>
@@ -35,12 +35,10 @@
     </table>
   </div>
 
+  <br>
 
-  <div class="row">
-    <h2 class="my-4">付款方式</h2>
-  </div>
-
-  <div class="row">
+  <h2 class="mt-4">付款方式</h2>
+  <div class="">
     <br>
     <div action="#" class="form pl-3">
       <div class="form-check">
@@ -55,25 +53,25 @@
   </div>
 
   <br>
-  <div class="row">
-    <h2 class="my-4">運送資料</h2>
-  </div>
-  <div>
-    <form action="/order" method="post" class="form-horizontal" id="orderContent" >
-      <div class="form-group row">
-        <label for="" class="col-form-label col-md-2 col-sm-12">地址</label>
-        <input type="text" name="address" class="form-control col-md-6 col-sm-12" required>
-      </div>
-      <div class="form-group row">
-        <label for="" class="col-form-label col-md-2 col-sm-12">收貨人</label>
-        <input type="text" name="person" class="form-control col-md-6 col-sm-12" required>
-      </div>
-      <div class="form-group row">
-        <label for="" class="col-form-label col-md-2 col-sm-12">連絡電話</label>
-        <input type="text" name="phone" class="form-control col-md-6 col-sm-12" required>
-      </div>
 
-    </form>
+  <h2 class="my-4">運送資料</h2>
+  <div>
+    <div class="container">
+      <form action="/order" method="post" class="form-horizontal" id="orderContent" >
+        <div class="form-group row">
+          <label for="" class="col-form-label col-md-2 col-sm-12">地址</label>
+          <input type="text" name="address" class="form-control col-md-6 col-sm-12" required>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-form-label col-md-2 col-sm-12">收貨人</label>
+          <input type="text" name="person" class="form-control col-md-6 col-sm-12" required>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-form-label col-md-2 col-sm-12">連絡電話</label>
+          <input type="text" name="phone" class="form-control col-md-6 col-sm-12" required>
+        </div>
+      </form>
+    </div>
   </div>
 
   <div class="row justify-content-center my-5">

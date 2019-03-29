@@ -50,6 +50,10 @@ function orderIntegraInfro(orderItemInfro){
       orderIntegrate.push({
         orderNumber: eachItem.orderNumber,
         time: time,
+        person: eachItem.person,
+        phone: eachItem.phone,
+        address: eachItem.address,
+        paymentway: eachItem.paymentway,
         total: eachItem.quantity*eachItem.price,
       });
     } else {

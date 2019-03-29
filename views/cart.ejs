@@ -2,55 +2,51 @@
 <% stylesheet('/stylesheets/css/cart.css') %>
 
 <div class="container">
-  <div class="row">
-    <h2 class="my-4">購物車</h2>
-    <% if (cartItem.length < 1 ) { %>
-      <h4 class="w-100">購物車內沒有商品</h4>
-    <% } else {%>
+  <h2 class="my-4">購物車</h2>
+  <% if (cartItem.length < 1 ) { %>
+    <h4 class="w-100">購物車內沒有商品</h4>
+  <% } else {%>
     <% cartItem[0] %>
-    <table class="table table-hover cartContent">
-      <thead class="thead-dark">
-        <tr>
-          <th>商品</th>
-          <th>單價</th>
-          <th>數量</th>
-          <th>小計</th>
-          <th></th>
-      </tr>
-      </thead>
-      <tbody>
-
-        <%  for( x in cartItem) {%>
-        <tr data-id="<%= cartItem[x].item._id%>">
-          <td ><%= cartItem[x].item.itemName %></td>
-          <td><span class="perPrice"><%= cartItem[x].item.price %></span><span> 元</span></td>
-          <td>
-            <input type="number" min="1" value="<%= cartItem[x].quantity %>" class="quantity">
-          </td>
-          <td><span class="itemSum"></span><span> 元</span></td>
-          <td>
-            <button class="btn btn-secondary btn-sm delBtn">刪除</button>
-          </td>
+    <div class="table-responsive">
+      <table class="table table-hover cartContent">
+        <thead class="thead-dark">
+          <tr>
+            <th>商品</th>
+            <th>單價</th>
+            <th>數量</th>
+            <th>小計</th>
+            <th></th>
         </tr>
+        </thead>
+        <tbody>
+        <%  for( x in cartItem) {%>
+          <tr data-id="<%= cartItem[x].item._id%>">
+            <td ><%= cartItem[x].item.itemName %></td>
+            <td>
+              <span class="perPrice"><%= cartItem[x].item.price %></span>
+              <span> 元</span></td>
+            <td>
+              <input type="number" min="1" value="<%= cartItem[x].quantity %>" class="quantity">
+            </td>
+            <td><span class="itemSum"></span><span> 元</span></td>
+            <td>
+              <button class="btn btn-secondary btn-sm delBtn">刪除</button>
+            </td>
+          </tr>
         <% } %>
 
-      </tbody>
-    </table>
-  </div>
-
-  <div class="row justify-content-end">
-    <div class="col-10"></div>
-    <div class="col-2">
-  </div>
-
-  <div class="row justify-content-end align-items-center my-5">
-    <div class="mx-5">
-      <span class="fontBigger">共 </span><span class="fontBigger totalCost">  </span><span class="fontBigger">元</span>
+        </tbody>
+      </table>
     </div>
-    <a href="/order/create" id="checkout">
-      <input type="text" value="結帳" class="btn btn-danger p-2" >
-    </a>
-  </div>
+
+    <div class="row justify-content-end align-items-center my-5">
+      <div class="mx-5">
+        <span class="fontBigger">共 </span><span class="fontBigger totalCost">  </span><span class="fontBigger">元</span>
+      </div>
+      <a href="/order/create" id="checkout">
+        <input type="text" value="結帳" class="btn btn-danger p-2" >
+      </a>
+    </div>
   <% } %>
 
 

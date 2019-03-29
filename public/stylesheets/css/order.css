@@ -4,3 +4,7 @@ body {
 
 ul, li {
   list-style: none; }
+
+@media only screen and (max-width: 480px) {
+  .table {
+    min-width: 470px; } }

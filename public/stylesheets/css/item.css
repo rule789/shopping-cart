@@ -5,6 +5,12 @@ body {
 ul, li {
   list-style: none; }
 
+#itemName {
+  margin-top: 24px; }
+
+.productIntro {
+  margin: 48px 0; }
+
 .productTabs {
   width: 85vw;
   margin: auto; }
@@ -23,6 +29,27 @@ ul, li {
   font-size: 35px; }
 
 .addtoCartBtn {
-  margin-top: 50px;
+  margin-top: 40px;
   padding: 10px 25px;
   font-size: 20px; }
+
+@media only screen and (max-width: 990px) {
+  #itemName {
+    margin-top: 0; }
+  .productIntro {
+    margin: 10px 0; }
+  .toFlex {
+    display: flex;
+    margin-top: 30px; }
+  .addtoCartBtn {
+    margin: 0 0 0 50px; } }
+
+@media only screen and (max-width: 765px) {
+  #itemName {
+    margin-top: 24px; } }
+
+@media only screen and (max-width: 400px) {
+  .toFlex {
+    display: block; }
+  .addtoCartBtn {
+    margin: 20px 0; } }

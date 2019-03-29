@@ -10,3 +10,13 @@ ul, li {
 
 .fontBigger {
   font-size: 20px; }
+
+@media only screen and (max-width: 550px) {
+  .cartContent {
+    min-width: 550px; }
+  .quantity {
+    width: 30px; } }
+
+@media only screen and (max-width: 570px) {
+  #checkout {
+    margin-right: 5vw; } }
