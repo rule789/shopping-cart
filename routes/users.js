@@ -72,26 +72,66 @@ router.get('/register', function(req, res, next){
 });
 
 
-// register
-router.post('/register', function(req, res, next){
-  let newUser = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-  });
 
-  newUser.createUser()
-    .then((user) => {
-      req.flash('success', '登入成功');
-      res.redirect('/');
-    })
-    .catch((e) => {
-      if(e.name == 'MongoError' &&  e.code == 11000){
-        req.flash('error', '此Email已註冊');
-        res.redirect('/users/register');
+// register
+router.post('/register',
+  passport.authenticate('signup', {
+    failureRedirect:'/users/register',
+    failureFlash: true,
+  }),
+  function(req, res, next) {
+    req.flash('success', '你已經登入');
+    res.redirect('/');
+  }
+);
+  // function(req, res, next){
+  // let newUser = new User({
+  //   name: req.body.name,
+  //   email: req.body.email,
+  //   password: req.body.password,
+  // });
+
+  // newUser.createUser()
+  //   .then((user) => {
+  //     req.flash('success', '登入成功');
+  //     res.redirect('/');
+  //   })
+  //   .catch((e) => {
+  //     if(e.name == 'MongoError' &&  e.code == 11000){
+  //       req.flash('error', '此Email已註冊');
+  //       res.redirect('/users/register');
+  //     }
+  //   });
+// });
+
+
+//  passport 註冊驗證
+passport.use('signup', new LocalStrategy({
+    usernameField: 'email',
+    passReqToCallback: true,
+  }, function(req, username, password, done){
+    User.findOne({ email: username}).then((user, err) => {
+      if (err) { return done(err);}
+      if (user) {
+        return done(null, false, { message: '此Email已註冊' });
+      } else {
+        let newUser = new User({
+          name: req.body.name,
+          email: req.body.email,
+          password: req.body.password,
+        });
+        newUser.createUser().then((user) => {
+          if (err){
+            return done(err);
+          }
+
+          return done(null, user);
+        });
       }
     });
-});
+  }
+));
+
 
 
 // login page
@@ -106,7 +146,7 @@ router.get('/login', function(req, res, next){
 // login
 router.post('/login',
   // middleware 身分認證
-  passport.authenticate('local', {
+  passport.authenticate('login', {
     failureRedirect: '/users/login',
     failureFlash: true}),
 
@@ -135,7 +175,8 @@ router.post('/login',
     }).catch((e) => {
       console.log(e);
     })
-  });
+  }
+);
 
 
 // session內的存入Cart
@@ -185,7 +226,7 @@ function sessionUpdate(session, item){
 
 
 //  passport 登入驗證
-passport.use(new LocalStrategy({
+passport.use('login', new LocalStrategy({
   usernameField: 'email',
   },
   function(username, password, done) {
