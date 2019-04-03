@@ -184,6 +184,8 @@ router.get('/order', ensureAuth, (req, res, next) => {
 // 送出訂單
 router.post('/order', ensureAuth, (req, res, next) => {
   let time = new Date().getTime();
+
+  // 取訂單編號
   Order.find().sort("-orderNumber").limit(1).then((lastOrder) => {
     let orderNumber;
     if( lastOrder.length == 0){
@@ -194,6 +196,8 @@ router.post('/order', ensureAuth, (req, res, next) => {
     return orderNumber;
 
   }).then((orderNumber) => {
+
+    // 建立訂單
     Cart.find({_creator: req.user._id}).then((cart) => {
       cart.forEach((carteach) => {
         let orderItem = new Order({
@@ -212,7 +216,11 @@ router.post('/order', ensureAuth, (req, res, next) => {
       });
     });
   }).then(() => {
-    return Cart.deleteMany({_creator: req.user._id});
+
+    // 刪除購物車內容
+    return Cart.deleteMany({_creator: req.user._id}).then(() => {
+      req.session.cart = [];
+    });
   }).then(() => {
       res.redirect('/order/finish');
   });
