@@ -80,6 +80,13 @@ router.post('/register',
     failureFlash: true,
   }),
   function(req, res, next) {
+    if (req.session.cart){
+      let session = req.session.cart;
+      // 購物車資料庫更新
+      let item = [];
+      mergeSessionCart(req.user._id, session, item);
+    }
+
     req.flash('success', '你已經登入');
     res.redirect('/');
   }
@@ -131,6 +138,7 @@ passport.use('signup', new LocalStrategy({
     });
   }
 ));
+
 
 
 
